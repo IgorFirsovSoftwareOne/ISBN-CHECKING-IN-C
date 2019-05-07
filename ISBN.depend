@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1555425056 source:c:\users\igor.firsov\desktop\c\isbn\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1555605077 source:c:\users\igor.firsov\desktop\projekte\c\isbn\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1557214399 source:c:\users\igor.firsov\desktop\isbn-checking-in-c-master\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
