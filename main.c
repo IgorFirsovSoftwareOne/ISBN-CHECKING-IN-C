@@ -3,12 +3,13 @@
 #include <stdbool.h>
 #include <string.h>
 
-bool isValidIsbn( char* isbnNumber);
-bool checkNumbersAndHyphons( char* isbnNumber);
+int isbnCalculation(char* isbnNumber);
+bool isValidIsbn(char* isbnNumber);
+bool checkNumbersAndHyphons(char* isbnNumber);
 void getIsbnNumber(char* isbnNumber);
-bool isHyphon( char* currentIsbnChar);
-bool isLetterX( char* currentIsbnChar);
-bool isNumber( char* currentIsbnChar);
+bool isHyphon(char* currentIsbnChar);
+bool isLetterX(char* currentIsbnChar);
+bool isNumber(char* currentIsbnChar);
 bool isAdjacentHyphen(char * currentIsbnChar, char * previousIsbnChar);
 
 int main(){
@@ -26,14 +27,18 @@ void getIsbnNumber(char* isbnNumber){
 	gets(isbnNumber);
 }
 
-bool checkNumbersAndHyphons( char* isbnNumber){
+bool checkNumbersAndHyphons(char* isbnNumber){
     int hyphonCounter = 0;
     int numberCounter = 0;
 
-    for(int i = 0; i < 13; i++){
+    for(int i = 0; i <= 13; i++){
         char currentIsbnChar = isbnNumber[i];
 
-        if(isHyphon(&currentIsbnChar))
+        if(i > 0 && isAdjacentHyphen(&currentIsbnChar, &isbnNumber[i-1])){
+            printf("TWO OR MORE HYPHENS ADJACENT");
+            return false;
+        }
+        else if(isHyphon(&currentIsbnChar))
             hyphonCounter++;
         else if(isNumber(&currentIsbnChar))
             numberCounter++;
@@ -48,11 +53,7 @@ int isbnCalculation(char* isbnNumber){
     for(int i = 0; i <= 13; i++){
         char currentIsbnChar = isbnNumber[i];
 
-        if(i > 0 && isAdjacentHyphen(&currentIsbnChar, &isbnNumber[i-1])){
-            printf("TWO OR MORE HYPHENS ADJACENT");
-            return false;
-        }
-        else if(isNumber(&currentIsbnChar)){
+        if(isNumber(&currentIsbnChar)){
             result += (currentIsbnChar-48) * isbnMultiplier;
             isbnMultiplier--;
         }
@@ -66,21 +67,21 @@ int isbnCalculation(char* isbnNumber){
 
 bool isValidIsbn(char* isbnNumber){
     if(checkNumbersAndHyphons(isbnNumber) && isbnCalculation(isbnNumber) == 0){
-        printf("VALID ISBN");
+        printf("\nVALID ISBN\n");
         return true;
     }
     else{
-        printf("INVALID ISBN");
+        printf("\nINVALID ISBN\n\n");
         return false;
     }
 }
-
 
 bool isAdjacentHyphen(char* currentIsbnChar, char* previousIsbnChar){
     return *currentIsbnChar == 45 && *previousIsbnChar == 45;
 }
 
 bool isLetterX(char* currentIsbnChar){
+    printf("hey");
     return *currentIsbnChar == 120 || *currentIsbnChar == 88;
 }
 bool isNumber(char *currentIsbnChar){
